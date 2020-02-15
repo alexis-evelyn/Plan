@@ -81,7 +81,7 @@ public class PlayerPageExporter extends FileExporter {
         if (dbState == Database.State.CLOSED || dbState == Database.State.CLOSING) return;
         if (!dbSystem.getDatabase().query(PlayerFetchQueries.isPlayerRegistered(playerUUID))) return;
 
-        exportPaths.put("../network/", toRelativePathFromRoot("network"));
+        exportPaths.put("../network", toRelativePathFromRoot("network"));
         exportPaths.put("../server/", toRelativePathFromRoot("server"));
         exportRequiredResources(toDirectory);
 
@@ -200,7 +200,7 @@ public class PlayerPageExporter extends FileExporter {
     }
 
     private String toNonRelativePath(String resourceName) {
-        return StringUtils.remove(resourceName, "../");
+        return StringUtils.remove(StringUtils.remove(resourceName, "../"), "./");
     }
 
 }
